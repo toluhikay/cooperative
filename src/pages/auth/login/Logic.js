@@ -1,7 +1,7 @@
 import { Field, Form, withFormik } from "formik";
 
 // import { useReducer } from "react";
-import { LoginYupSchemma } from "../../yup";
+import { LoginYupSchemma } from "../../../yup";
 
 // const initial = {
 //   request: false,
@@ -37,21 +37,23 @@ const validationWithFormik = withFormik({
     setFieldValue({ remember: true });
     setStatus(true);
 
-    if (values.remember) {
-      localStorage.setItem("cooperation_userName", values.userName);
+    if (!values.remember) {
+      localStorage.setItem("cooperation_userName", '');
+      localStorage.setItem("cooperation_password", '');
+    }else {
       localStorage.setItem("cooperation_password", values.password);
+      localStorage.setItem("cooperation_userName", values.userName);
     }
 
-    // if(localStorage.getItem(cooperation_userName))
   },
-  displayName: "LoginLogic",
+  displayName: "Logic",
 });
 
 export function Error({ error }) {
   return <div className='text-red-700 mt-2 text-sm'>{error}</div>;
 }
 
-function LoginLogic({ values, errors, touched, status }) {
+function Logic({ values, errors, touched, status }) {
   //   const [state, dispatch] = useReducer(reducer, initial);
 
   async function signRequest(values) {
@@ -158,4 +160,4 @@ function LoginLogic({ values, errors, touched, status }) {
   );
 }
 
-export default validationWithFormik(LoginLogic);
+export default validationWithFormik(Logic);
