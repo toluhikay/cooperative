@@ -3,5 +3,6 @@
     "prettier.enableDebugLogs": true,
     "prettier.htmlWhitespaceSensitivity": "strict",
     "prettier.jsxSingleQuote": false,
-    "prettier.trailingComma": "all"
+    "prettier.trailingComma": "all",
+    "editor.formatOnSave": true
 }

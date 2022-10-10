@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import { Field, Form, withFormik } from "formik";
 import { LoginYupSchemma } from "../../../yup";
 import {LoginReq} from "../../../api/Api";
@@ -17,34 +18,6 @@ const validationWithFormik = withFormik({
   }),
   validationSchema: LoginYupSchemma,
 
-  handleSubmit: (values, { setStatus, setFieldValue }) => {
-    setFieldValue({ remember: true });
-    setStatus(true);
-
-    if (!values.remember) {
-      localStorage.setItem("cooperation_userName", '');
-      localStorage.setItem("cooperation_password", '');
-    }else {
-      localStorage.setItem("cooperation_password", values.password);
-      localStorage.setItem("cooperation_userName", values.userName);
-    }
-    let value = {
-      username:values.userName,
-      password:values.password
-    }
-    // const navigate = useNavigate()
-    LoginReq(value,(res)=> {
-
-      if(!res.status === 200){
-        toast.error(res.statusText)
-      }
-      // navigate('dashboard')
-        
-      console.log(res)
-      console.log('woking')
-    })
-
-  },
   displayName: "Login",
 });
 
@@ -52,8 +25,57 @@ export function Error({ error }) {
   return <div className='text-red-700 mt-2 text-sm'>{error}</div>;
 }
 
- function Login({ errors, touched, status }) {
-  console.log(status)
+function saveToken(token){
+ localStorage.setItem('cooperation_token', token) 
+}
+
+ function Login({values,errors,touched,status, setStatus, setFieldValue}) {
+  const navigate = useNavigate()
+
+
+   function submit(e){
+    setStatus(true)
+    e.preventDefault()
+    setFieldValue({ remember: true });
+
+    if (!values.remember) {
+      localStorage.setItem("cooperation_password", values.password);
+      localStorage.setItem("cooperation_userName", values.userName);
+    }else {
+      localStorage.setItem("cooperation_password", values.password);
+      localStorage.setItem("cooperation_userName", values.userName);
+    }
+    
+
+
+
+    let value = {
+      username:values.userName,
+      password:values.password
+    }
+    LoginReq(value,async(res)=> {
+      const status = await res;
+      if(status){
+        setStatus(false)
+        if(status.status === 'success'){
+          const {role} = status?.user
+          saveToken(status.accessToken)
+          if(role === 'super_admin') navigate('/dashboard/member-details',{replace:true})
+          else if(role === 'user') console.log('user')
+        
+        }else {
+          toast.error(status.message)
+
+        }
+      }
+      
+
+     
+
+        
+      console.log('woking')
+    })
+  }
 
   return (
     <div class='flex items-center justify-center h-screen px-6 bg-gray-200'>
@@ -80,7 +102,7 @@ export function Error({ error }) {
           <span class='text-2xl font-semibold text-gray-700'>V-Dashboard</span>
         </div>
 
-        <Form class='mt-10'>
+        <Form class='mt-10' onSubmit={submit}>
           <label class='block'>
             <span class='inline-block my-2 text-base text-gray-600'>
               User Name

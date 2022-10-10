@@ -17,6 +17,7 @@ export default function MainSection({paths}){
                 {/* <Header/> */}
                 <Routes>
                 <Route path={(location.pathname === 'dashboard/' || location.pathname === '/member-details') && '/member-details'} index element={<MemberDetails/>}></Route>
+                <Route path='/member-details' element={<MemberDetails/>}></Route>
                 <Route path='/account-details'  element={<Accountdetails/>}></Route>
                 <Route path='/profile'  element={<UserProfile/>}></Route>
                 <Route path='/forms'  element={<CForms/>}></Route>
