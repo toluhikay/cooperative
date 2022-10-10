@@ -20,7 +20,7 @@ export default function Dashboard(){
 
     <div class="flex-1 flex flex-col overflow-hidden">
 
-      <div class="flex-1 px-6 overflow-x-hidden overflow-y-auto bg-gray-200">
+      <div class="flex-1 px-6 overflow-x-show bg-red-800 overflow-y-auto bg-gray-200">
         <MainSection paths={dashboardLinks}/>
       </div>
     </div>

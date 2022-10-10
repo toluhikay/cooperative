@@ -1,7 +1,4 @@
-import Logic from '../login/Logic'
+import Login from '../login/Logic'
 
-function Login() {
-  return <Logic/>
-}
 
 export default Login;

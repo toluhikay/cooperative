@@ -5,16 +5,18 @@ import UserProfile from "../profile"
 import Header from "../header"
 import CForms from "../forms"
 import Settings from "../setting"
+import { useLocation } from "react-router-dom"
 
 
 
 
 export default function MainSection({paths}){  
-            return (
+    const location = useLocation()
+    return (
                 <>
-                {/* <Header heading={paths.header}/> */}
+                {/* <Header/> */}
                 <Routes>
-                <Route path='/member-details' index element={<MemberDetails/>}></Route>
+                <Route path={(location.pathname === 'dashboard/' || location.pathname === '/member-details') && '/member-details'} index element={<MemberDetails/>}></Route>
                 <Route path='/account-details'  element={<Accountdetails/>}></Route>
                 <Route path='/profile'  element={<UserProfile/>}></Route>
                 <Route path='/forms'  element={<CForms/>}></Route>

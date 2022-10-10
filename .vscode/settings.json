@@ -1,0 +1,7 @@
+{
+    "prettier.bracketSameLine": true,
+    "prettier.enableDebugLogs": true,
+    "prettier.htmlWhitespaceSensitivity": "strict",
+    "prettier.jsxSingleQuote": false,
+    "prettier.trailingComma": "all"
+}

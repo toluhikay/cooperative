@@ -1,26 +1,9 @@
 import { Field, Form, withFormik } from "formik";
-
-// import { useReducer } from "react";
 import { LoginYupSchemma } from "../../../yup";
+import {LoginReq} from "../../../api/Api";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-// const initial = {
-//   request: false,
-//   success: "",
-//   error: "",
-// };
-
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "REQUEST":
-//       return { ...state, request: true, success: "", error: "" };
-//     case "SUCCESS_RESPONSE":
-//       return { ...state, request: false, success: action.payLoad, error: "" };
-//     case "ERROR_RESPONSE":
-//       return { ...state, request: false, success: "", error: action.payLoad };
-//     default:
-//       return state;
-//   }
-// };
 
 const validationWithFormik = withFormik({
   mapPropsToValues: ({
@@ -33,6 +16,7 @@ const validationWithFormik = withFormik({
     remember,
   }),
   validationSchema: LoginYupSchemma,
+
   handleSubmit: (values, { setStatus, setFieldValue }) => {
     setFieldValue({ remember: true });
     setStatus(true);
@@ -44,22 +28,33 @@ const validationWithFormik = withFormik({
       localStorage.setItem("cooperation_password", values.password);
       localStorage.setItem("cooperation_userName", values.userName);
     }
+    let value = {
+      username:values.userName,
+      password:values.password
+    }
+    // const navigate = useNavigate()
+    LoginReq(value,(res)=> {
+
+      if(!res.status === 200){
+        toast.error(res.statusText)
+      }
+      // navigate('dashboard')
+        
+      console.log(res)
+      console.log('woking')
+    })
 
   },
-  displayName: "Logic",
+  displayName: "Login",
 });
 
 export function Error({ error }) {
   return <div className='text-red-700 mt-2 text-sm'>{error}</div>;
 }
 
-function Logic({ values, errors, touched, status }) {
-  //   const [state, dispatch] = useReducer(reducer, initial);
+ function Login({ errors, touched, status }) {
+  console.log(status)
 
-  async function signRequest(values) {
-    // MAKE API CALL
-    // dispatch({ type: "REQUEST" });
-  }
   return (
     <div class='flex items-center justify-center h-screen px-6 bg-gray-200'>
       <div class='w-full max-w-md p-6 bg-white rounded-md shadow-md'>
@@ -160,4 +155,4 @@ function Logic({ values, errors, touched, status }) {
   );
 }
 
-export default validationWithFormik(Logic);
+export default validationWithFormik(Login);
