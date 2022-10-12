@@ -1,82 +1,72 @@
-import {useState} from 'react';
-import { Field, Form, withFormik } from "formik";
+import {  useFormik, } from "formik";
 import { LoginYupSchemma } from "../../../yup";
 import {LoginReq} from "../../../api/Api";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
-const validationWithFormik = withFormik({
-  mapPropsToValues: ({
-    userName = localStorage.getItem("cooperation_userName"),
-    password = localStorage.getItem("cooperation_userName"),
-    remember = false,
-  }) => ({
-    userName,
-    password,
-    remember,
-  }),
-  validationSchema: LoginYupSchemma,
-
-  displayName: "Login",
-});
 
 export function Error({ error }) {
   return <div className='text-red-700 mt-2 text-sm'>{error}</div>;
 }
 
+
 function saveToken(token){
  localStorage.setItem('cooperation_token', token) 
 }
 
- function Login({values,errors,touched,status, setStatus, setFieldValue}) {
+
+
+ function Login() {
   const navigate = useNavigate()
 
-
-   function submit(e){
-    setStatus(true)
-    e.preventDefault()
-    setFieldValue({ remember: true });
-
-    if (!values.remember) {
-      localStorage.setItem("cooperation_password", values.password);
-      localStorage.setItem("cooperation_userName", values.userName);
+ function loginRequest(data){
+    if (data.remember) {
+      localStorage.setItem("cooperation_password", data.password);
+      localStorage.setItem("cooperation_userName", data.userName);
     }else {
-      localStorage.setItem("cooperation_password", values.password);
-      localStorage.setItem("cooperation_userName", values.userName);
+      localStorage.setItem("cooperation_password", data.password);
+      localStorage.setItem("cooperation_userName", data.userName);
     }
     
-
-
-
     let value = {
-      username:values.userName,
-      password:values.password
+      username:data.userName,
+      password:data.password
     }
     LoginReq(value,async(res)=> {
+      
       const status = await res;
       if(status){
-        setStatus(false)
+        formik.setSubmitting(false)
         if(status.status === 'success'){
           const {role} = status?.user
-          saveToken(status.accessToken)
+         saveToken(status.accessToken)
           if(role === 'super_admin') navigate('/dashboard/member-details',{replace:true})
-          else if(role === 'user') console.log('user')
+         else if(role === 'user') console.log('user')
         
         }else {
           toast.error(status.message)
-
+  
         }
       }
-      
-
-     
-
-        
-      console.log('woking')
-    })
+        })
   }
+  
 
+const formik = useFormik({
+  initialValues: {
+    userName:localStorage.getItem("cooperation_userName"),
+     password:localStorage.getItem("cooperation_userName"),
+   remember: false,
+  },
+  
+  validationSchema:LoginYupSchemma,
+  onSubmit: (value,{setFieldValue})=> {
+      setFieldValue({ remember: true });
+      loginRequest(value)
+}
+})
+    
   return (
     <div class='flex items-center justify-center h-screen px-6 bg-gray-200'>
       <div class='w-full max-w-md p-6 bg-white rounded-md shadow-md'>
@@ -102,19 +92,21 @@ function saveToken(token){
           <span class='text-2xl font-semibold text-gray-700'>V-Dashboard</span>
         </div>
 
-        <Form class='mt-10' onSubmit={submit}>
+        <form class='mt-10' onSubmit={formik.handleSubmit}>
           <label class='block'>
             <span class='inline-block my-2 text-base text-gray-600'>
               User Name
             </span>
-            <Field
+            <input
               type='text'
               id='userName'
               name='userName'
+              onChange={formik.handleChange}
+              value={formik.values.userName}
               class='block w-full mt-2 py-2 px-2 border border-gray-600 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 bg-[#f4f4f4]'
             />
-            {errors.userName && touched.userName && (
-              <Error error={errors.userName} />
+            {formik.errors.userName && formik.touched.userName && (
+              <Error error={formik.errors.userName} />
             )}
           </label>
 
@@ -122,22 +114,24 @@ function saveToken(token){
             <span class='inline-block text-base text-gray-600 my-2'>
               Password
             </span>
-            <Field
+            <input
               type='password'
               id='password'
               name='password'
+              onChange={formik.handleChange}
+              value={formik.values.password}
               class='block w-full mt-2 py-2 px-2 border border-gray-600 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 bg-[#f4f4f4]'
               v-model='password'
             />
-            {errors.password && touched.password && (
-              <Error error={errors.password} />
+            {formik.errors.password && formik.touched.password && (
+              <Error error={formik.errors.password} />
             )}
           </label>
 
           <div class='flex items-center justify-between mt-4'>
             <div>
               <label class='inline-flex items-center'>
-                <Field
+                <input
                   type='checkbox'
                   id='remember'
                   name='remember'
@@ -148,11 +142,11 @@ function saveToken(token){
             </div>
 
             <div>
-              <a
+              <Link
                 class='block text-sm text-indigo-700 fontme hover:underline'
-                href='/'>
+                to='/forget-password'>
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -160,7 +154,7 @@ function saveToken(token){
             <button
               type='submit'
               class='w-full px-4 py-3 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none hover:bg-indigo-500'>
-              {status ? (
+              {formik.isSubmitting ? (
                 <div
                   class='spinner-border animate-spin inline-block w-6 h-6 border-2 rounded-full border-t-indigo-600'
                   role='status'>
@@ -171,10 +165,10 @@ function saveToken(token){
               )}
             </button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );
 }
 
-export default validationWithFormik(Login);
+export default (Login);

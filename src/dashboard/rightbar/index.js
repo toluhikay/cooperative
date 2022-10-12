@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom"
 
 
 
-export default function MainSection({paths}){  
+export default function MainSection(){  
     const location = useLocation()
     return (
                 <>

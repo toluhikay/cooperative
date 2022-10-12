@@ -1,27 +1,22 @@
-import { useFormik } from "formik";
-import {  useNavigate } from "react-router-dom";
-import { ForgetPasswordSchema } from "../../../yup";
-import { ForgetReq } from "../../../api/Api";
+import {  useFormik, } from "formik";
+import { ResetPasswordSchema } from "../../../yup";
+import { ResetPasswordReq } from "../../../api/Api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { Error } from "../login/Logic";
 
-
-export function Error({ error }) {
-  return <div className='text-red-700 mt-2 text-sm'>{error}</div>;
-}
-
-function ForgetPassword() {
+ function ResetPassword() {
   const navigate = useNavigate()
 
- function forgetPasswordRequest(data){
+  function resetPasswordRequest(data){
    
     
     let value = {
       email:data.email,
     }
-    ForgetReq(value,async(res)=> {
+    ResetPasswordReq(value,async(res)=> {
       
       const status = await res;
-      console.log(status);
       if(status){
         formik.setSubmitting(false)
         if(status.status === 'success'){
@@ -36,18 +31,17 @@ function ForgetPassword() {
   }
   
 
-const formik = useFormik({
-  initialValues: {
-  email:'',
-  },
-  
-  validationSchema:ForgetPasswordSchema,
-  onSubmit: (value,{setFieldValue})=> {
-      setFieldValue({ remember: true });
 
-forgetPasswordRequest(value)
-}
-})
+  const formik = useFormik({
+    initialValues:{
+      password:'',
+      confirm_password:'',
+    },
+    validationSchema:ResetPasswordSchema,
+    onSubmit:(value)=> {
+      resetPasswordRequest(value)
+    }
+  })
   
 
   return (
@@ -76,23 +70,43 @@ forgetPasswordRequest(value)
         </div>
 
         <form class='mt-10' onSubmit={formik.handleSubmit}>
-          <label class='block'>
-            <span class='inline-block my-2 text-base text-gray-600'>
-              Email
+          
+
+          <label class='block mt-3'>
+            <span class='inline-block text-base text-gray-600 my-2'>
+              Password
             </span>
             <input
-              type='email'
-              id='email'
-              name='email'
-              onChange={formik.handleChange}
-              value={formik.values.email}
+              type='password'
+              id='password'
+              name='password'
               class='block w-full mt-2 py-2 px-2 border border-gray-600 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 bg-[#f4f4f4]'
+              onChange={formik.handleChange}
+              value={formik.values.password}
             />
-            {formik.errors.email && formik.touched.email && (
-              <Error error={formik.errors.email} />
+            {formik.errors.password && formik.touched.password && (
+              <Error error={formik.errors.password} />
             )}
           </label>
-         <div class='mt-6'>
+          <label class='block'>
+            <span class='inline-block my-2 text-base text-gray-600'>
+Confirm password      </span>
+            <input
+              type='text'
+              id='confirm_password'
+              name='confirm_password'
+              class='block w-full mt-2 py-2 px-2 border border-gray-600 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 bg-[#f4f4f4]'
+              onChange={formik.handleChange}
+              value={formik.values.confirm_password}
+            />
+            {formik.errors.confirm_password && formik.touched.confirm_password && (
+              <Error error={formik.errors.confirm_password} />
+            )}
+          </label>
+
+          
+
+          <div class='mt-6'>
             <button
               type='submit'
               class='w-full px-4 py-3 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none hover:bg-indigo-500'>
@@ -103,7 +117,7 @@ forgetPasswordRequest(value)
                   <span class='visually-hidden '></span>
                 </div>
               ) : (
-                "Submit"
+                "Reset"
               )}
             </button>
           </div>
@@ -113,4 +127,4 @@ forgetPasswordRequest(value)
   );
 }
 
-export default(ForgetPassword);
+export default (ResetPassword);
