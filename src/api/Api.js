@@ -45,7 +45,7 @@ export const ForgetReq = async (values, funct =(res)=>{}) => {
     }
     }
 
-    export async function ResetPasswordReq(values,funct=(res)=>{}){
+    export async function ResetPasswordReq(values,funct=(res)=>{},token){
         const data = JSON.stringify(values)
         try {
         
@@ -53,7 +53,8 @@ export const ForgetReq = async (values, funct =(res)=>{}) => {
                 method:'POST',
                 body:data,
                 headers:{   
-                "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization":`bearer ${token}`,
                 },
             })
     
@@ -133,6 +134,51 @@ export const ForgetReq = async (values, funct =(res)=>{}) => {
         }
 
     }
+
+    export async function GetMemberAccountSummary(funct=(res)=>{},token){
+        try {
+        
+            const response = await fetch('https://refiners-cooperative-api.herokuapp.com/api/v1/members/member-account-summaries',{
+                method:'GET',
+                headers:{   
+                "Content-Type": "application/json",
+            "Authorization":`bearer ${token}`
+                },
+            })
+    
+            funct(response.json())
+            
+        } catch (error) {
+            if(!error) return 
+            const message = error.message
+            toast.error(message)
+        }
+
+    }
+
+
+export async function GetMemberAccount(name, funct = (res) => { }, token) {
+        try {
+        
+            const response = await fetch(`https://refiners-cooperative-api.herokuapp.com/api/v1/members/account-total/details?account=${name}`,{
+                method:'GET',
+                headers:{   
+                "Content-Type": "application/json",
+            "Authorization":`bearer ${token}`
+                },
+            })
+    
+            funct(response.json())
+            
+        } catch (error) {
+            if(!error) return 
+            const message = error.message
+            toast.error(message)
+        }
+
+    }
+
+
 
 
      

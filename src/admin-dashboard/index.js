@@ -23,7 +23,7 @@ export default function AdminDashboard(){
 
     <div class="flex-1 flex flex-col overflow-hidden">
 
-      <div class="flex-1 px-6 overflow-x-show bg-green-800 overflow-y-auto bg-gray-200">
+      <div class="flex-1 px-6 overflow-x-show overflow-y-auto bg-gray-200">
         <MainDashboard/>
       </div>
     </div>

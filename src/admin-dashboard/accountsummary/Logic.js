@@ -4,6 +4,7 @@ import {GetMembers}  from '../../api/Api';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useToken } from '../../hooks';
+import { FullPageLoader } from '../component/ui';
 
 
 export function render_head(tableInfo){
@@ -105,12 +106,14 @@ export function render_head(tableInfo){
 export default function AccountSummary(){
     const [members, setMembers] = useState([]);
     const [token] = useToken();
+    const [request, setRequest] = useState(true);
 
     useEffect(()=> {
     GetMembers(1, async(res)=> {
         const { status, members, totalNumberOfMembers, message } = await res;
         if(!status)return
-        else{
+        else {
+            setRequest(false)
             if (status !== 'success') {
                 toast.error(message)
             } else {
@@ -120,17 +123,14 @@ export default function AccountSummary(){
 
     },token)
 },[token])
-// console.log(data.error);
    
     return <>
     <div className="flex flex-col px-4">
     <div className="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div
-        className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
-        >
-    <Table render_head={render_head(_member_details)} render_body={renderTable_body(members)}/>
-
-        </div>
+        {request ? <FullPageLoader/> :<div
+      className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
+      >
+    <Table render_head={render_head(_member_details)} render_body={renderTable_body(members)}/></div>}
         </div>
         </div>
     </>

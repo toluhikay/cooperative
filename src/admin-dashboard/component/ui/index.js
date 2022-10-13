@@ -1,8 +1,14 @@
+import { Link } from "react-router-dom";
+
 export default function AdminCard({ cardData }) {
+
+
+
+
   if (!cardData) return;
   function renderKeys() {
     return Object.entries(cardData).map((data,id) => {
-       return <div class="px-6 mt-6 sm:mt-0 cursor-pointer" key={id}>
+      return <Link to={`${data[0]}`} class="block px-6 mt-6 sm:mt-0 cursor-pointer" key={id}>
             <div
               class="flex items-center h-36 px-5 py-6 bg-white rounded-md shadow-sm"
               >
@@ -11,8 +17,21 @@ export default function AdminCard({ cardData }) {
                 <div class="text-gray-500 text-base">{data[1]}</div>
               </div>
             </div>
-          </div>
+          </Link>
       })
   }
   return (<>{renderKeys()}</>)
 };
+
+
+export function FullPageLoader() {
+  return (
+    <div className="h-screen w-screeen flex items-center justify-center">
+       <div
+        class='spinner-border animate-spin  inline-block w-16 h-16 border-2 rounded-full border-t-indigo-600 border-b-indigo-600'
+        role='status'>
+        <span class='visually-hidden '></span>
+      </div>
+    </div>
+  )
+}
