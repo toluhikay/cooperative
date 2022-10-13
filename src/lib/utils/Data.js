@@ -62,3 +62,8 @@ export const _loan_account = {
     
 ]}
 
+export const _member_details = {
+ table_head: ['S/N', 'Firstname', 'Lastname', 'Username', 'Email','Phone','Role', 'Gender','Address', 'Edit', 'Delete'],
+ data:[{id:0, firstName:'Thomas', lastName:'Ejembi', username:'NewtDev',email:'ejembithomas@gmail.com', phone:'08171315756',role:'Admin', gender:'Male',address:'Abuja Nigeria'}]
+}
+

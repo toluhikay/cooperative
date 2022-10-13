@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./pages/auth/login";
 import ForgetPassword from "./pages/auth/forgetpassword";
 import AppIdle from './components/idle';
+import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 
 import Dashboard from "./dashboard";
 import AdminDashboard from "./admin-dashboard";
@@ -14,6 +15,9 @@ import ResetPassword from "./pages/auth/resetpassword";
 
 function App() {
 
+  const queryClient = new QueryClient()
+
+
   useEffect(()=> {
     window.onload = function() {
       AppIdle()
@@ -22,7 +26,7 @@ function App() {
 
   return (
     <div className='App'>
-      {/* <h1 className='text-center font-bold text-blue-900'>Kay Araba</h1> */}
+      <QueryClientProvider>
       <Routes>
         <Route path='/' element={<Login/>}></Route>
         <Route path='/forget-password' element={<ForgetPassword/>}></Route>
@@ -31,6 +35,8 @@ function App() {
         <Route path='/admin-dashboard/*' element={<AdminDashboard/>}></Route>
       </Routes>
       <Toaster />
+        </QueryClientProvider>     
+         {/* <h1 className='text-center font-bold text-blue-900'>Kay Araba</h1> */}
     </div>
   );
 }
