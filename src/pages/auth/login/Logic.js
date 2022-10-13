@@ -33,31 +33,33 @@ function saveToken(token){
       username:data.userName,
       password:data.password
     }
-    LoginReq(value,async(res)=> {
+   LoginReq(value, async (res) => {
       
-      const status = await res;
-      if(status){
-        formik.setSubmitting(false)
-        if(status.status === 'success'){
-          const {role} = status?.user
-         saveToken(status.accessToken)
-          if(role === 'super_admin') navigate('/dashboard/member-details',{replace:true})
-         else if(role === 'user') console.log('user')
+     const status = await res;
+     if (status) {
+       formik.setSubmitting(false)
+       if (status.status !== 'success') {
+          
+         toast.error(status.message)
         
-        }else {
-          toast.error(status.message)
-  
-        }
-      }
-        })
+       }
+       else {
+         const { role,
+         } = status?.user;
+         saveToken(status.accessToken);
+         if (role === 'super_admin') navigate('/admin-dashboard', { replace: true })
+         else if (role === 'user') navigate('/dashboard', { replace: true });
+       };
+     };
+   });
   }
   
 
 const formik = useFormik({
   initialValues: {
     userName:localStorage.getItem("cooperation_userName"),
-     password:localStorage.getItem("cooperation_userName"),
-   remember: false,
+    password:localStorage.getItem("cooperation_userName"),
+    remember: false,
   },
   
   validationSchema:LoginYupSchemma,

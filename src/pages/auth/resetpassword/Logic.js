@@ -4,30 +4,29 @@ import { ResetPasswordReq } from "../../../api/Api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Error } from "../login/Logic";
+import { useToken } from "../../../hooks";
 
- function ResetPassword() {
-  const navigate = useNavigate()
+function ResetPassword() {
+  const [token] = useToken;
+
+  const navigate = useNavigate();
 
   function resetPasswordRequest(data){
-   
-    
     let value = {
       email:data.email,
     }
-    ResetPasswordReq(value,async(res)=> {
+    ResetPasswordReq(value, async (res) => {
       
       const status = await res;
-      if(status){
+      if (status) {
         formik.setSubmitting(false)
-        if(status.status === 'success'){
-         navigate('/reset-password',{replace:true})
-        
-        }else {
-          toast.error(status.message)
-  
+        if (status.status !== 'success') {
+          toast.error(status.message);
+        } else {
+          navigate('/reset-password', { replace: true });
         }
       }
-        })
+    }, token);
   }
   
 
@@ -39,7 +38,7 @@ import { Error } from "../login/Logic";
     },
     validationSchema:ResetPasswordSchema,
     onSubmit:(value)=> {
-      resetPasswordRequest(value)
+      resetPasswordRequest(value);
     }
   })
   

@@ -1,9 +1,13 @@
-import renderTable_head from '../../components/accountdetailsComp/commoditytrading/Logic';
 import { Table } from '../../components/accountdetailsComp/Logic';
 import { _member_details } from '../../lib/utils/Data';
-// const _registeredMember = ['Firstname', 'Lastname', 'Username', 'Email','Phone','Role', 'Gender','Address']
+import {GetMembers}  from '../../api/Api';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useToken } from '../../hooks';
+
 
 export function render_head(tableInfo){
+    if(!tableInfo) return
     return tableInfo.table_head.map((cur,id)=> {
         return (
               <th id={id}
@@ -17,94 +21,114 @@ export function render_head(tableInfo){
   }
 
 
-  export function renderTable_body (tableInfo){
-        return tableInfo.data.map(({id,firstName,lastName,username,phone,role,gender,address,email})=> {
-            const style = "px-6 py-4 text-start border-b border-gray-200 whitespace-nowrap"
-        return (
-                    <tr key={id}>
-                      <td
-                        className={style}
-                        >
-                        {id}
-                      </td>
+  export function renderTable_body(tableInfo){
+      if (!tableInfo) return;
+      return tableInfo.map(({ firstName, lastName, username, phoneNumber, role, gender, address, email },id) => {
+          const style = "px-6 py-4 text-start border-b border-gray-200 whitespace-nowrap";
+          return (
+              <tr key={id}>
+                  <td
+                      className={style}
+                  >
+                      {id}
+                  </td>
         
-                      <td
-                        className={style}
-                        >
-                            {firstName}
-                      </td>
+                  <td
+                      className={style}
+                  >
+                      {firstName}
+                  </td>
         
-                      <td
-                        className={style}
-                        >
-                        {lastName}
+                  <td
+                      className={style}
+                  >
+                      {lastName}
         
-                      </td>
+                  </td>
         
-                      <td
-                        className={style}
-                        >
-                        {username}
-                      </td>
-                      <td
-                        className={style}
-                        >
-                        {email}
-                      </td>
-                      <td
-                        className={style}
-                        >
-                        {phone}
-                      </td>
+                  <td
+                      className={style}
+                  >
+                      {username}
+                  </td>
+                  <td
+                      className={style}
+                  >
+                      {email}
+                  </td>
+                  <td
+                      className={style}
+                  >
+                      {phoneNumber}
+                  </td>
                      
-                      <td
-                        className={style}
-                        >
-                        {role}
-                      </td>
-                      <td
-                        class={style}
-                        >
-                        {gender}
-                      </td>
-                      <td
-                        class={style}
-                        >
-                        {address}
-                      </td>
-                      <td
-                        className={style}
-                        >
-                        <button className='py-2 px-4 bg-indigo-600 rounded text-white'>
+                  <td
+                      className={style}
+                  >
+                      {role}
+                  </td>
+                  <td
+                      class={style}
+                  >
+                      {gender}
+                  </td>
+                  <td
+                      class={style}
+                  >
+                      {address}
+                  </td>
+                  <td
+                      className={style}
+                  >
+                      <button className='py-2 px-4 bg-indigo-600 rounded text-white'>
 
-                    Update
-                        </button>
-                      </td>
-                      <td
-                        className={style}
-                        >
-                            <button className='py-2 px-4 bg-red-600 rounded text-white'>
+                          Update
+                      </button>
+                  </td>
+                  <td
+                      className={style}
+                  >
+                      <button className='py-2 px-4 bg-red-800 rounded text-white'>
 
-                        Delete
-                            </button>
-                      </td>
+                          Remove
+                      </button>
+                  </td>
                      
-                    </tr>
-        )
-        })
-        }
+              </tr>
+          );
+      });
+};
     
 
 
 
 export default function AccountSummary(){
+    const [members, setMembers] = useState([]);
+    const [token] = useToken();
+
+    useEffect(()=> {
+    GetMembers(1, async(res)=> {
+        const { status, members, totalNumberOfMembers, message } = await res;
+        if(!status)return
+        else{
+            if (status !== 'success') {
+                toast.error(message)
+            } else {
+                setMembers(members);
+            }
+        };
+
+    },token)
+},[token])
+// console.log(data.error);
+   
     return <>
     <div className="flex flex-col px-4">
     <div className="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div
         className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
         >
-    <Table render_head={render_head(_member_details)} render_body={renderTable_body(_member_details)}/>
+    <Table render_head={render_head(_member_details)} render_body={renderTable_body(members)}/>
 
         </div>
         </div>

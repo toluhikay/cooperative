@@ -4,5 +4,6 @@
     "prettier.htmlWhitespaceSensitivity": "strict",
     "prettier.jsxSingleQuote": false,
     "prettier.trailingComma": "all",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
 }

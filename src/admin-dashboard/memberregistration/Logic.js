@@ -4,10 +4,12 @@ import { RegisterMemberSchema } from "../../yup";
 import { Error } from "../../pages/auth/login/Logic";
 import { LoaderButton } from "../../ui/button";
 import { RegisterMember } from "../../api/Api";
+import { useToken } from "../../hooks";
 import toast from "react-hot-toast";
 
 
-export default function MemberRegistration(){
+export default function MemberRegistration() {
+  const [token] = useToken()
 
     function registerMemberRequest(data){
    
@@ -26,7 +28,7 @@ export default function MemberRegistration(){
       
             }
           }
-            })
+            },token)
       }
       
     

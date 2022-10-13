@@ -90,3 +90,49 @@ export const ForgetReq = async (values, funct =(res)=>{}) => {
         }
 
     }
+
+    export async function GetMembers( page,funct=(res)=>{}, token){
+        try {
+        
+            const response = await fetch(`https://refiners-cooperative-api.herokuapp.com/api/v1/members?page=${page}&limit=10`,{
+                method:'GET',
+                headers:{   
+                "Content-Type": "application/json",
+                    'Authorization': `bearer ${token}`
+                },
+            })
+    
+            funct(response.json())
+            
+        } catch (error) {
+            if(!error) return 
+            const message = error.message
+            toast.error(message)
+        }
+
+    }
+
+
+    export async function GetAccountSummary(funct=(res)=>{},token){
+        try {
+        
+            const response = await fetch('https://refiners-cooperative-api.herokuapp.com/api/v1/members/member-account-summaries',{
+                method:'GET',
+                headers:{   
+                "Content-Type": "application/json",
+            "Authorization":`bearer ${token}`
+                },
+            })
+    
+            funct(response.json())
+            
+        } catch (error) {
+            if(!error) return 
+            const message = error.message
+            toast.error(message)
+        }
+
+    }
+
+
+     
