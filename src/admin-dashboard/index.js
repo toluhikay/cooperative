@@ -6,10 +6,13 @@ import SideBar from "./sidebar";
 
 const dashboardLinks = [
     {id:0, name:'Overview', path:'account-overview', header:'members account overview'},
-    {id:1, name:'Registered member', path:'registered-members', header:'registered members'},
-    {id:2, name:'Register member', path:'member-registration', header:'New member registration'},
-    {id:3,name:'News', path:'news', header:'News Section'},
-    {id:4, name:'Log out', path:'log-out', header:'log out'},
+    {id:1, name:'Registered user', path:'registered-user', header:'registered user'},
+  { id: 2, name: 'Register user', path: 'user-registration', header: 'New user registration' },
+  { id: 3, name: 'Registered member', path: 'registered-member', header: 'registered member' },
+  { id: 4, name: 'Register member', path: 'member-registration', header: 'New member registration' },
+    {id:5,name:'News', path:'news', header:'News Section'},
+  { id: 6, name: 'Log out', path: 'log-out', header: 'log out' },
+    
 ]
 
 
