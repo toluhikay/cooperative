@@ -7,6 +7,7 @@ import Overview from "../overview";
 import Logout from '../../logout';
 import MemberAccount from "../memberaccount";
 import UpdateMemberDetails from '../update/index';
+import MemberDetails from "../memberdetails";
 // import { MemberDetailsContext } from "../userlist/Logic";
 
 
@@ -29,6 +30,7 @@ export default function MainDashboard(){
 
                 <Route path='/account-overview/:id' element={<MemberAccount />} />
                 <Route path='/registered-member/:id' element={<UpdateMemberDetails />} />
+                <Route path='/registered-member-details/:id' element={<MemberDetails />} />
                 <Route path='/log-out' element={<Logout />} />
             </Routes>
             {/* </MemberDetailsContext.Provider> */}

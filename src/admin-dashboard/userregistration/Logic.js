@@ -54,7 +54,7 @@ const [bankList, setBankList] = useState([])
 
   function renderList() {
     return bankList.map(({name, id}) => {
-      return <option value={name}>{name }</option>
+      return <option key={id} value={name}>{name }</option>
 
     })
   }

@@ -179,7 +179,7 @@ export async function GetMemberAccount(name, funct = (res) => { }, token) {
 }
     
 
-export async function GetBankList(funct = (res) => {}, token) {
+export async function GetBankList(funct = (res) => {}, ) {
         try {
         
             const response = await fetch(`https://haypex.com.ng/dev/thomas/fetchBanks.php`)
@@ -192,7 +192,27 @@ export async function GetBankList(funct = (res) => {}, token) {
             toast.error(message)
         }
 
+}
+    
+
+export async function GetMemberTransaction(value, funct = () => { }, token) {
+    const { MEMBER_ID, TRANSACTION_TYPE } = value;
+    try {
+    
+        const data = await fetch(`https://refiners-cooperative-api.herokuapp.com/api/v1/transactions/member-transactions/?user=${MEMBER_ID}&${TRANSACTION_TYPE}=true`, {
+            method:'GET',
+            headers:{   
+            "Content-Type": "application/json",
+        "Authorization":`bearer ${token}`
+            },
+        });
+        funct(data.json())
+    } catch (error) {
+        if(!error) return 
+        const message = error.message
+        toast.error(message)
     }
+}
 
 
 

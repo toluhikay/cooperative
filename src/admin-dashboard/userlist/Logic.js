@@ -7,13 +7,11 @@ import { useToken } from '../../hooks';
 import { FullPageLoader } from '../component/ui';
 import { useNavigate } from 'react-router-dom';
 
-export function TableLink({id, data}) {
+export function TableLink({ data, url, name}) {
     const navigate = useNavigate();
     return <button className='py-2 px-4 bg-indigo-600 rounded text-white inline-block'
-onClick={()=> navigate(`/admin-dashboard/registered-member/${id}`, {state: data})}>
-
-     Update
- </button>
+        onClick={() => navigate(url, { state: data })}>
+        {name}</button>
 };
 
 
@@ -92,19 +90,13 @@ export function renderTable_body(tableInfo) {
                   <td
                       className={style}
                   >
-                      <TableLink id={id} data={cur} />
-                      {/* <Link className='py-2 px-4 bg-indigo-600 rounded text-white inline-block' to={`/admin-dashboard/registered-member/${id}`}>
-
-                          Update
-                      </Link> */}
+                      <TableLink  data={cur} url={`/admin-dashboard/registered-member/${id}`} name='update' />
+                   
                   </td>
                   <td
                       className={style}
                   >
-                      <button className='py-2 px-4 bg-indigo-600 rounded text-white'>
-
-                          View details
-                      </button>
+                <TableLink  data={cur} url={`/admin-dashboard/registered-member-details/${id}`} name='View details' />
                   </td>
                   <td
                       className={style}
