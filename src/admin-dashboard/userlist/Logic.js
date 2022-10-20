@@ -5,6 +5,16 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useToken } from '../../hooks';
 import { FullPageLoader } from '../component/ui';
+import { useNavigate } from 'react-router-dom';
+
+export function TableLink({id, data}) {
+    const navigate = useNavigate();
+    return <button className='py-2 px-4 bg-indigo-600 rounded text-white inline-block'
+onClick={()=> navigate(`/admin-dashboard/registered-member/${id}`, {state: data})}>
+
+     Update
+ </button>
+};
 
 
 export function render_head(tableInfo){
@@ -22,16 +32,17 @@ export function render_head(tableInfo){
   }
 
 
-  export function renderTable_body(tableInfo){
+export function renderTable_body(tableInfo) {
       if (!tableInfo) return;
-      return tableInfo.map(({ firstName, lastName, username, phoneNumber, role, gender, address, email },id) => {
+    return tableInfo.map((cur, idx) => {
+        const { id, firstName, lastName, username, phoneNumber, role, gender, address, email } = cur;
           const style = "px-6 py-4 text-start border-b border-gray-200 whitespace-nowrap";
           return (
               <tr key={id}>
                   <td
                       className={style}
                   >
-                      {id}
+                      {idx}
                   </td>
         
                   <td
@@ -81,9 +92,18 @@ export function render_head(tableInfo){
                   <td
                       className={style}
                   >
-                      <button className='py-2 px-4 bg-indigo-600 rounded text-white'>
+                      <TableLink id={id} data={cur} />
+                      {/* <Link className='py-2 px-4 bg-indigo-600 rounded text-white inline-block' to={`/admin-dashboard/registered-member/${id}`}>
 
                           Update
+                      </Link> */}
+                  </td>
+                  <td
+                      className={style}
+                  >
+                      <button className='py-2 px-4 bg-indigo-600 rounded text-white'>
+
+                          View details
                       </button>
                   </td>
                   <td

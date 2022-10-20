@@ -1,94 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
-import { RegisterMemberSchema } from "../../yup";
-import { LoaderButton } from "../../ui/button";
-import { RegisterMember } from "../../api/Api";
-import { useToken } from "../../hooks";
-import toast from "react-hot-toast";
-import { MemberRegistration_update } from "../component/member/Logic";
 import { Input, Select } from "../../ui/input";
-import { GetBankList } from "../../api/Api";
+import { useFormik } from "formik";
+import { LoaderButton } from "../../ui/button";
+import { MemberRegistration_update } from "../component/member/Logic";
+import { useLocation } from "react-router-dom";
+
+export function UpdateMemberDetails() {
+    const location = useLocation();
+    const {firstName,role, lastName,phoneNumber,email,address,gender,accountNumber,accountName,username} = location.state
 
 
-export default function MemberRegistration() {
-const [bankList, setBankList] = useState([])
-
-  const input_style = "form-control block w-full px-3 py-3 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
+    const input_style = "form-control block w-full px-3 py-3 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
 
     const select_style = "form-select appearance-none block w-full px-3 py-3 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
-  const [token] = useToken()
 
-    function registerMemberRequest(data){
-   
-    
-        
-        RegisterMember(data,async(res)=> {
-          
-          const status = await res;
-          if(status){
-            formik.setSubmitting(false)
-            if(status.status === 'success'){
-                toast.success(status.message)
-            
-            }else {
-              toast.error(status.message)
-      
-            }
-          }
-            },token)
-      }
-      
-    
-  useEffect(() => {
-    GetBankList(async (res) => {
-      const status = await res;
-      console.log(status)
-      if (status.error) {
-        toast.error(status.error)
-      } else {
-        
-        setBankList(status.success)
-      };    
-    });
-  }, []);
 
-  function renderList() {
-    return bankList.map(({name, id}) => {
-      return <option value={name}>{name }</option>
-
+    const formik = useFormik({
+        initialValues: {
+            firstName:firstName,
+            lastName:lastName,
+            email:email,
+            username:username,
+            phoneNumber:phoneNumber,
+            address:address,
+            gender:gender,
+        role: role,
+        // loanStatus: loanStatus,
+        // membershipStatus: membershipStatus,
+        // nextOfKin: nextOfKin,
+        // bankName: '',
+        accountNumber: accountNumber,
+        accountName:accountName,
+        }
     })
-  }
-
     
-const formik  = useFormik({
-    initialValues:{
-        firstName:'',
-        lastName:'',
-        email:'',
-        username:'',
-        phoneNumber:'',
-        address:'',
-        gender:'',
-    role: '',
-    loanStatus: '',
-    membershipStatus: '',
-    nextOfKin: '',
-    bankName: '',
-    accountNumber: "",
-    accountName:'',
-    
-        
-        
-    },
-    validationSchema:RegisterMemberSchema,
-  onSubmit: (value) => {
-        registerMemberRequest(value)
-    }
-
-})
-
-
-    return (
+    return <>
         <MemberRegistration_update>
 
         <form onSubmit={formik.handleSubmit}>
@@ -148,13 +93,15 @@ const formik  = useFormik({
 
             <Input name='accountName' id='accountName' placeholder='Account name' handleChange={formik.handleChange} value={formik.values.accountNumber} error={formik.errors.accountNumber} touched={formik.touched.accountNumber} input_style={input_style} />
         </div>
-          <Select select_style={select_style} name='bankname' label='list of banks' value={formik.values.bankName} handleChange={formik.handleChange}>
-         
+        <Select select_style={select_style} name='bankname' label='list of banks' value={formik.values.bankName} handleChange={formik.handleChange}>
             <option selected>Choose Bank</option>
-            {renderList()}
+            <option value="first">First bank</option>
+            <option value="Polaris">Polaris bank</option>
+            <option value="stanbic">Stanbic bank</option>
         </Select>
-        <LoaderButton name="Add member" type='submit' loading={formik.isSubmitting} />
+        <LoaderButton name="Update details" type='submit' loading={formik.isSubmitting} />
             </form>
         </MemberRegistration_update>
-    )
+        </>
+        
 }

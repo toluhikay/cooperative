@@ -16,9 +16,16 @@ export const ResetPasswordSchema = Yup.object().shape({
   confirm_password: Yup.string().oneOf([Yup.ref('password')],'Confirm password must match password').required('Please confirm your password'),
 })
 
+
 export const RegisterMemberSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required!'),
-    lastName: Yup.string().required('Last name is required!'),
-    email: Yup.string().required('Email is required!').email('must be a valid email'),
-    phoneNumber:Yup.string().required('Phone number is required!').phone('NGN','Add the +234 at the beginning of your phone number'),
+  lastName: Yup.string().required('Last name is required!'),
+  email: Yup.string().required('Email is required!').email('must be a valid email'),
+  phoneNumber: Yup.string().required('Phone number is required!').phone('NGN', 'Add the +234 at the beginning of your phone number'),
+  nextOfKin: Yup.string().required('Next of kin is required'),
+  accountName: Yup.string().required('Account name is required'),
+  accountNumber: Yup.string().required('Account number is required'),
+  membershipStatus: Yup.string().required('Membership status is required!'),
+  loanStatus: Yup.string().required('Loan status is required'),
+  
 })

@@ -6,7 +6,8 @@ import AccountSummary from '../userlist';
 import Overview from "../overview";
 import Logout from '../../logout';
 import MemberAccount from "../memberaccount";
-
+import UpdateMemberDetails from '../update/index';
+// import { MemberDetailsContext } from "../userlist/Logic";
 
 
 export default function MainDashboard(){
@@ -14,18 +15,23 @@ export default function MainDashboard(){
     return (
         <>
             <header />
+            {/* <MemberDetailsContext.Provider value={'sdoihds'}> */}
+
             <Routes>
                 <Route path={(location.pathname === 'admin-dashboard/') && '/account-overview'} index element={<Overview />} />
                 <Route path='/account-overview' element={<Overview />}></Route>
 
-                <Route path='/user-registration' element={<MemberRegistration />} />
+                <Route path='/member-registration' element={<MemberRegistration />} />
                 {/* <Route path='/member-registration' element={<MemberRegistration/>}/> */}
                 <Route path='/news' element={<News />} />
-                <Route path='/registered-user' element={<AccountSummary />} />
+                <Route path='/registered-member' element={<AccountSummary />} />
                 {/* <Route path='/registered-member' element={<AccountSummary/>}/> */}
+
                 <Route path='/account-overview/:id' element={<MemberAccount />} />
+                <Route path='/registered-member/:id' element={<UpdateMemberDetails />} />
                 <Route path='/log-out' element={<Logout />} />
             </Routes>
+            {/* </MemberDetailsContext.Provider> */}
         </>
     );
     

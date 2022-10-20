@@ -176,6 +176,22 @@ export async function GetMemberAccount(name, funct = (res) => { }, token) {
             toast.error(message)
         }
 
+}
+    
+
+export async function GetBankList(funct = (res) => {}, token) {
+        try {
+        
+            const response = await fetch(`https://haypex.com.ng/dev/thomas/fetchBanks.php`)
+    
+        funct(response.json())
+            
+        } catch (error) {
+            if(!error) return 
+            const message = error.message
+            toast.error(message)
+        }
+
     }
 
 

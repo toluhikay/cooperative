@@ -19,14 +19,14 @@ export const TokenContext = createContext(null);
             let id = setTimeout(() => {
                 localStorage.clear();
                 
-            }, 86400000);
+            }, 10800000);
             return () => {
                 clearTimeout(id)
             }
         }
 
 
-},[token])
+},[navigate,token])
      return <>
          <TokenContext.Provider value={[token]}>
              {children}

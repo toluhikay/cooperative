@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function AdminCard({ cardData }) {
 
+  const card_heading = ['Thrift Savings', 'Share Capital', 'Fine Statement', 'Loan Statement', 'Project Financing', 'Special Deposit', 'Commodity Trading'];
 
 
 
@@ -13,7 +14,7 @@ export default function AdminCard({ cardData }) {
               class="flex items-center h-36 px-5 py-6 bg-white rounded-md shadow-sm"
               >
               <div class="lg:w-56">
-                <h4 class="text-lg font-semibold text-gray-700 my-2">{data[0]}</h4>
+                <h4 class="text-lg font-semibold text-gray-700 my-2">{card_heading[id]}</h4>
                 <div class="text-gray-500 text-base">{data[1]}</div>
               </div>
             </div>
