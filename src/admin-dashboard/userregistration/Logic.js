@@ -42,7 +42,6 @@ const [bankList, setBankList] = useState([])
   useEffect(() => {
     GetBankList(async (res) => {
       const status = await res;
-      console.log(status)
       if (status.error) {
         toast.error(status.error)
       } else {
@@ -53,6 +52,7 @@ const [bankList, setBankList] = useState([])
   }, []);
 
   function renderList() {
+    
     return bankList.map(({name, id}) => {
       return <option key={id} value={name}>{name }</option>
 

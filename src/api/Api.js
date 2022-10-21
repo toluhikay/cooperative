@@ -214,6 +214,25 @@ export async function GetMemberTransaction(value, funct = () => { }, token) {
     }
 }
 
+export async function GetMemeberTransactionDetails(value, funct=(res)=>{}, token) {
+    const { MEMBER_ID, TRANSACTION_TYPE } = value;
+    try {
+    
+        const data = await fetch(`https://refiners-cooperative-api.herokuapp.com/api/v1/transactions/member-transactions/?user=${MEMBER_ID}&${TRANSACTION_TYPE}=true`, {
+            method:'GET',
+            headers:{   
+            "Content-Type": "application/json",
+        "Authorization":`bearer ${token}`
+            },
+        });
+        funct(data.json())
+    } catch (error) {
+        if(!error) return 
+        const message = error.message
+        toast.error(message)
+    }
+}
+
 
 
 

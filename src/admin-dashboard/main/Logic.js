@@ -5,7 +5,7 @@ import News from '../news';
 import AccountSummary from '../userlist';
 import Overview from "../overview";
 import Logout from '../../logout';
-import MemberAccount from "../memberaccount";
+import MemberAccount from "../membersaccount";
 import UpdateMemberDetails from '../update/index';
 import MemberDetails from "../memberdetails";
 // import { MemberDetailsContext } from "../userlist/Logic";

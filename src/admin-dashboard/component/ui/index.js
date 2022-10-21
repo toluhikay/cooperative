@@ -11,11 +11,12 @@ export default function AdminCard({ cardData }) {
     return Object.entries(cardData).map((data,id) => {
       return <Link to={`${data[0]}`} class="block px-6 mt-6 sm:mt-0 cursor-pointer" key={id}>
             <div
-              class="flex items-center h-36 px-5 py-6 bg-white rounded-md shadow-sm"
+              className="flex items-center h-36 px-5 py-6 bg-white rounded-md shadow-sm"
               >
-              <div class="lg:w-56">
-                <h4 class="text-lg font-semibold text-gray-700 my-2">{card_heading[id]}</h4>
-                <div class="text-gray-500 text-base">{data[1]}</div>
+              <div className="lg:w-80">
+                <h4 className="text-lg font-semibold text-gray-700 my-2">{card_heading[id]}</h4>
+            <div className="text-gray-500 text-base">{data[1]}</div>
+            <span className="px-4 py-1 bg-indigo-700 text-white inline-block mt-2 rounded">Select</span>
               </div>
             </div>
           </Link>
@@ -29,9 +30,9 @@ export function FullPageLoader() {
   return (
     <div className="h-screen w-screeen flex items-center justify-center">
        <div
-        class='spinner-border animate-spin  inline-block w-16 h-16 border-2 rounded-full border-t-indigo-600 border-b-indigo-600'
+        className='spinner-border animate-spin  inline-block w-16 h-16 border-2 rounded-full border-t-indigo-600 border-b-indigo-600'
         role='status'>
-        <span class='visually-hidden '></span>
+        <span className='visually-hidden '></span>
       </div>
     </div>
   )
