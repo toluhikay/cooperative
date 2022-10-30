@@ -28,4 +28,10 @@ export const RegisterMemberSchema = Yup.object().shape({
   membershipStatus: Yup.string().required('Membership status is required!'),
   loanStatus: Yup.string().required('Loan status is required'),
   
+});
+
+export const AccountValidationSchema = Yup.object().shape({
+  amount: Yup.string().required('Amount is required'),
+  description: Yup.string().required('Description is required'),
+  account: Yup.string().required('Account is required.')
 })

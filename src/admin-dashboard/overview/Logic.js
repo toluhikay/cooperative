@@ -31,7 +31,8 @@ useEffect(()=> {
         <div>    
             <div class="mt-4">
               {request ?  <FullPageLoader /> :
-              <div class="lg:w-[90%] h-full grid gap-4 justify-items-center content-center grid-cols-2 md:grid-cols-2 lg:grid-cols-3 ">
+              // <div class="lg:w-[90%] h-full grid gap-4 justify-items-center content-center grid-cols-2 md:grid-cols-2 lg:grid-cols-3 ">
+              <div class="lg:w-full mx-auto h-full grid gap-4 justify-items-center grid-cols-2 md:grid-cols-2 lg:grid-cols-3 ">
                <AdminCard cardData={details} />
               </div>
               }

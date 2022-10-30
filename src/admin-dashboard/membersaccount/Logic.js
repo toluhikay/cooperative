@@ -29,6 +29,7 @@ export default function MemberAccount() {
     }, [url,token]);
 
     return <section className="h-screen w-full">
+        {console.log(data)}
         {request ? <FullPageLoader /> : <div>data</div>}
     </section>
 }

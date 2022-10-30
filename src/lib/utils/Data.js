@@ -67,3 +67,18 @@ export const _member_details = {
  data:[{id:0, firstName:'Thomas', lastName:'Ejembi', username:'NewtDev',email:'ejembithomas@gmail.com', phone:'08171315756',role:'Admin', gender:'Male',address:'Abuja Nigeria'}]
 }
 
+
+export function currencyFormater(amount){
+    
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'NGN',
+      
+      });
+      
+    return formatter.format(amount);
+}
+
+export function FormatterName(data) {
+    return (data.split(/(?=[A-Z])/).join(' ').toUpperCase())
+}

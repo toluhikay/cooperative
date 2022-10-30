@@ -1,5 +1,4 @@
 import toast from "react-hot-toast";
-import axios from './BaseURL';
 
 export const LoginReq = async (values, funct =(res)=>{}) => {
 const data = JSON.stringify(values)
@@ -232,6 +231,32 @@ export async function GetMemeberTransactionDetails(value, funct=(res)=>{}, token
         toast.error(message)
     }
 }
+
+
+export async function Transactions(value, funct = (res) => { },token) {
+    const { MEMBER_ID, type, values} = value ;
+
+    try {
+        const data = await fetch(`https://refiners-cooperative-api.herokuapp.com/api/v1/transactions/${type}/${MEMBER_ID}`, {
+        method:'POST',
+        headers:{   
+        "Content-Type": "application/json",
+        "Authorization":`bearer ${token}`
+        },
+        body: JSON.stringify(values)
+    });
+    funct(data.json());
+        
+    } catch (error) {
+        if(!error) return 
+        const message = error.message
+        toast.error(message)
+    }
+    
+};
+
+
+
 
 
 

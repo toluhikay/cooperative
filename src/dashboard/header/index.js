@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 
-export default function Header(){
+export default function Header({name}){
     return (
         <header
-    className="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600"
+    className="flex min-w-full items-center justify-between px-6 py-8"
   >
     <div className="flex items-center">
       <button
@@ -28,12 +28,12 @@ export default function Header(){
       </button>
 
       <div className="relative mx-4 lg:mx-0">
-        <h3 className="text-bold text-xl lg:text-2xl">ACCOUNT DETAILS</h3>
+            <h3 className="text-bold text-xl lg:text-2xl">{name}</h3>
         
       </div>
     </div>
 
-    <div className="flex items-center">
+    {/* <div className="flex items-center">
       <button className="flex mx-4 text-gray-600 focus:outline-none">
         <svg
           className="w-6 h-6"
@@ -96,7 +96,7 @@ export default function Header(){
           </div>
         </transition>
       </div>
-    </div>
+    </div> */}
   </header>
 )
 }

@@ -1,4 +1,5 @@
 import { Table } from '../../components/accountdetailsComp/Logic';
+import Header from '../../dashboard/header';
 import { _member_details } from '../../lib/utils/Data';
 import {GetMembers}  from '../../api/Api';
 import { useEffect, useState } from 'react';
@@ -6,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useToken } from '../../hooks';
 import { FullPageLoader } from '../component/ui';
 import { useNavigate } from 'react-router-dom';
+import { FilteredTable } from '../../components/accountdetailsComp/Logic';
 
 export function TableLink({ data, url, name}) {
     const navigate = useNavigate();
@@ -108,6 +110,7 @@ export function renderTable_body(tableInfo) {
                   </td>
                      
               </tr>
+              
           );
       });
 };
@@ -119,31 +122,44 @@ export default function AccountSummary(){
     const [members, setMembers] = useState([]);
     const [token] = useToken();
     const [request, setRequest] = useState(true);
+    const [page, setPage] = useState(1)
 
-    useEffect(()=> {
-    GetMembers(1, async(res)=> {
-        const { status, members, totalNumberOfMembers, message } = await res;
-        if(!status)return
-        else {
-            setRequest(false)
-            if (status !== 'success') {
-                toast.error(message)
-            } else {
-                setMembers(members);
-            }
-        };
+    useEffect(() => {
+        GetMembers(page, async (res) => {
+            const { status, members, totalNumberOfMembers, message } = await res;
+            if (!status) return
+            else {
+                setRequest(false)
+                if (status !== 'success') {
+                    toast.error(message)
+                } else {
+                    setMembers(members);
+                }
+            };
 
-    },token)
-},[token])
+        }, token)
+    }, [token])
+
+    function previousPage(){
+        setPage((prev) => prev + 1);
+    }
+
+    function nextPage() {
+        setPage((prev)=> prev-1)
+    }
    
     return <>
-    <div className="flex flex-col px-4">
-    <div className="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        {request ? <FullPageLoader/> :<div
-      className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
-      >
-    <Table render_head={render_head(_member_details)} render_body={renderTable_body(members)}/></div>}
-        </div>
+        <div className="flex flex-col px-4">
+            <Header name='All Registered Member'/>
+            <div className="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                {request ? <FullPageLoader /> : <div
+                    className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
+                >
+                    <FilteredTable data={members} table_head={render_head(_member_details)} render_body={(a) => renderTable_body(a)} page={page} prev={previousPage} next={nextPage} />
+                    
+                </div>
+                }
+            </div>
         </div>
     </>
 }
