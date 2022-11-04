@@ -1,4 +1,3 @@
-import { Table } from '../../components/accountdetailsComp/Logic';
 import Header from '../../dashboard/header';
 import { _member_details } from '../../lib/utils/Data';
 import {GetMembers}  from '../../api/Api';
@@ -11,7 +10,7 @@ import { FilteredTable } from '../../components/accountdetailsComp/Logic';
 
 export function TableLink({ data, url, name}) {
     const navigate = useNavigate();
-    return <button className='py-2 px-4 bg-indigo-600 rounded text-white inline-block'
+    return <button className='py-2 px-4 bg-indigo-600 rounded text-white inline-block cursor-pointer'
         onClick={() => navigate(url, { state: data })}>
         {name}</button>
 };
@@ -35,6 +34,7 @@ export function render_head(tableInfo){
 export function renderTable_body(tableInfo) {
       if (!tableInfo) return;
     return tableInfo.map((cur, idx) => {
+        
         const { id, firstName, lastName, username, phoneNumber, role, gender, address, email } = cur;
           const style = "px-6 py-4 text-start border-b border-gray-200 whitespace-nowrap";
           return (
@@ -138,14 +138,14 @@ export default function AccountSummary(){
             };
 
         }, token)
-    }, [token])
+    }, [token,page])
 
     function previousPage(){
-        setPage((prev) => prev + 1);
+        setPage((prev) => prev - 1);
     }
 
     function nextPage() {
-        setPage((prev)=> prev-1)
+        setPage((prev)=> prev + 1)
     }
    
     return <>

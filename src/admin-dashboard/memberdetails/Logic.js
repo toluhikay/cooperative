@@ -86,9 +86,9 @@ export default function MemberDetails() {
             <div> 
             {/* FOR THE ACCOUNT TABLE FOR MEMBER */}
          </div> 
-            {transactionType && transactionType === 'Credit account' && <Modal {...Credit_account_details} />}
+            {transactionType && transactionType === 'Credit account' && <Modal {...Credit_account_details} remove={(val)=>setTransactionType(val)}/>}
 
-            {transactionType && transactionType === 'Debit account' && <Modal {...Debit_account_details} /> }
+            {transactionType && transactionType === 'Debit account' && <Modal {...Debit_account_details} remove={(val)=>setTransactionType(val)} /> }
         </article>
 
     </section>

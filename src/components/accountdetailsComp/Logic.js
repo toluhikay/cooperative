@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
   
 
-export function FilteredTable({ data, table_head, render_body,page,prev,next }) {
+export function FilteredTable({ data, table_head, render_body, page, prev, next }) {
   
   const [value, setValue] = useState('');
 
@@ -14,7 +14,7 @@ export function FilteredTable({ data, table_head, render_body,page,prev,next }) 
 
   return <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
     <div className="p-4 bg-white">
-      {/* {console.log(SearchDetails())} */}
+      {console.log(SearchDetails())}
     <label for="table-search" class="sr-only">Search</label>
     <div className="relative mt-1">
         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -44,7 +44,7 @@ export function FilteredTable({ data, table_head, render_body,page,prev,next }) 
             
            
           <li>
-            <button className="flex py-2 px-3 leading-tight text-gray-700 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
+            <button onClick={next} className="flex py-2 px-3 leading-tight text-gray-700 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
               <span className="">Next</span>
               <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
             </button>

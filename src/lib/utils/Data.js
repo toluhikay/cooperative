@@ -82,3 +82,10 @@ export function currencyFormater(amount){
 export function FormatterName(data) {
     return (data.split(/(?=[A-Z])/).join(' ').toUpperCase())
 }
+
+
+
+export const accountData = [{ id: 1, firstName: 'Thomas', lastName: 'Ejembi', username: '003', Total: '300000' }];
+
+
+export const memberaccountData = [{ id: 1, date: '30-10-2020', narration:'testing', debit:'3000', credit:'80000',  account: '300000' }];

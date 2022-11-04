@@ -8,8 +8,10 @@ import Logout from '../../logout';
 import MemberAccount from "../membersaccount";
 import UpdateMemberDetails from '../update/index';
 import MemberDetails from "../memberdetails";
+import MemberAccountDetails from '../membertransaction';
 import AdminAuth from "../adminAuth";
 import Header from "../../dashboard/header";
+
 
 
 export default function MainDashboard() {
@@ -33,6 +35,7 @@ export default function MainDashboard() {
                 <Route path='/account-overview/:id' element={<MemberAccount />} />
                 <Route path='/registered-member/:id' element={<UpdateMemberDetails />} />
                 <Route path='/registered-member-details/:id' element={<MemberDetails />} />
+                <Route path='/registered-member-details/:id/:name' element={<MemberAccountDetails />} />
                 <Route path='/log-out' element={<Logout />} />
             </Routes>
             </AdminAuth>
