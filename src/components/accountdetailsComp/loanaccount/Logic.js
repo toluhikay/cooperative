@@ -68,7 +68,8 @@ export default function LoanAccount(){
     <div class="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div
         class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
-        >
+          >
+            
     <Table render_body={renderTable_body(_loan_account)} render_head={renderTable_head(_loan_account)}/>
 
         </div>

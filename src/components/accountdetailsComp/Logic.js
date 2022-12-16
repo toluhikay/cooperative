@@ -14,7 +14,6 @@ export function FilteredTable({ data, table_head, render_body, page, prev, next 
 
   return <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
     <div className="p-4 bg-white">
-      {console.log(SearchDetails())}
     <label for="table-search" class="sr-only">Search</label>
     <div className="relative mt-1">
         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
