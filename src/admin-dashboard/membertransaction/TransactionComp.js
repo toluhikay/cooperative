@@ -43,6 +43,7 @@ export function render_head() {
 						</td>
 
 						<td>
+							{/* jkkjbjkjbk? */}
 							{/* <TableLink  data={cur} url={`admin-dashboard/registered-member-details/63482f57e1189c6d372002db/shareCapital/${id}`} name='update' /> */}
 						</td>
 					</tr>
