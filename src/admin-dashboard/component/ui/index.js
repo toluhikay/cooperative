@@ -4,7 +4,7 @@ import { FormatterName } from "../../../lib/utils/Data";
 
 
 export default function AdminCard({ cardData }) {
-
+console.log(cardData);
   if (!cardData) return;
   function renderKeys() {
     return Object.entries(cardData).map((data, id) => {

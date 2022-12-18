@@ -22,45 +22,30 @@ export function render_head() {
           const { account, amount, date, description, transactionType, user, id } = cur;
         const style = "px-6 py-4 text-start border-b border-gray-200 whitespace-nowrap";
         return (
-          <tr>
-                
-                <td key={id}
-                    className={style}
-                    >
-                    {date}
-                </td> 
-                <td key={id}
-                    className={style}
-                    >
-                    {account}
-                </td> 
-                <td key={id}
-                    className={style}
-                    >
-                    {currencyFormater(amount)}
-                </td> 
-                <td key={id}
-                    className={style}
-                    >
-                    {description}
-                </td> 
-                <td key={id}
-                    className={style}
-                    >
-                    {transactionType}
-                </td> 
-                <td key={id}
-                    className={style}
-                    >
-                    {user}
-                </td> 
-                
-                <td>
-                      <TableLink  data={cur} url={`admin-dashboard/registered-member-details/63482f57e1189c6d372002db/shareCapital/${id}`} name='update' />
-                   
-                  </td>
-                    </tr>
-            
-        );
+					<tr>
+						<td key={id} className={style}>
+							{date}
+						</td>
+						<td key={id} className={style}>
+							{account}
+						</td>
+						<td key={id} className={style}>
+							{currencyFormater(amount)}
+						</td>
+						<td key={id} className={style}>
+							{description}
+						</td>
+						<td key={id} className={style}>
+							{transactionType}
+						</td>
+						<td key={id} className={style}>
+							{user}
+						</td>
+
+						<td>
+							{/* <TableLink  data={cur} url={`admin-dashboard/registered-member-details/63482f57e1189c6d372002db/shareCapital/${id}`} name='update' /> */}
+						</td>
+					</tr>
+				);
     });
 };

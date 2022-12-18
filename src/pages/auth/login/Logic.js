@@ -34,24 +34,20 @@ function saveToken(token){
       password:data.password
     }
    LoginReq(value, async (res) => {
-      
-     const status = await res;
-     if (status) {
-       formik.setSubmitting(false)
-       if (status.status !== 'success') {
-          
-         toast.error(status.message)
-        
-       }
-       else {
-         const { role,
-         } = status?.user;
-         saveToken(status.accessToken);
-         if (role === 'super_admin') navigate('/admin-dashboard', { replace: true })
-         else if (role === 'user') navigate('/dashboard', { replace: true });
-       };
-     };
-   });
+			const response = await res;
+			if (response) {
+				formik.setSubmitting(false);
+				if (response.statusText === "Accepted") {
+					console.log(await response);
+					const { role } = response?.data?.user;
+					saveToken(response?.data?.accessToken);
+					if (role === "super_admin")
+						navigate("/admin-dashboard/account-overview", { replace: true });
+				}
+			} else {
+				toast.error(response.message);
+			}
+		});
   }
   
 

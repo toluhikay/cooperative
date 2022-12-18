@@ -1,6 +1,4 @@
-import { useRef, useState } from "react";
-
-  
+import { useState } from "react";
 
 export function FilteredTable(props) {
 	const { data, table_head, render_body, page, prev, next } = props;
@@ -112,24 +110,19 @@ export function FilteredTable(props) {
 }
 
 export function Table({ render_body, render_head }) {
+	function SearchDetails() {
+		return render_body.filter((data) => console.log(data));
+	}
 
-  function SearchDetails() {
-    return render_body.filter((data)=>console.log(data) )
-  }
-  
-  // const [data, setData] = useState();
+	// const [data, setData] = useState();
 
-  return (
-   
-      <table className="w-full">
-        <thead className="">
-          
-          <tr>{render_head}</tr>
-        </thead>
-        <tbody className="bg-white">{render_body}</tbody>
-        {/* <td className="h-16 bg-green-900"></td> */}
-      </table>
-      
-)
-
+	return (
+		<table className="w-full">
+			<thead className="">
+				<tr>{render_head}</tr>
+			</thead>
+			<tbody className="bg-white">{render_body}</tbody>
+			{/* <td className="h-16 bg-green-900"></td> */}
+		</table>
+	);
 }
