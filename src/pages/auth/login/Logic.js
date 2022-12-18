@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 export function Error({ error }) {
-  return <div className='text-red-700 mt-2 text-sm'>{error}</div>;
+  return <div className="text-red-700 mt-2 text-sm text-start">{error}</div>;
 }
 
 

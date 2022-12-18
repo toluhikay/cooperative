@@ -125,43 +125,56 @@ export default function AccountSummary(){
     const [page, setPage] = useState(1)
 
     useEffect(() => {
-        GetMembers(page, async (res) => {
-            const { status, members, totalNumberOfMembers, message } = await res;
-            if (!status) return
-            else {
-                setRequest(false)
-                if (status !== 'success') {
-                    toast.error(message)
-                } else {
-                    setMembers(members);
-                }
-            };
+			GetMembers(
+				page,
+				async (res) => {
+					const { status, members, totalNumberOfMembers, message } = await res;
+					if (!status) return;
+					else {
+						setRequest(false);
+						if (status !== "success") {
+							toast.error(message);
+						} else {
+							setMembers(members);
+						}
+					}
+				},
+				token,
+			);
+		}, [token, page]);
 
-        }, token)
-    }, [token,page])
+		function previousPage() {
+			setPage((prev) => prev - 1);
+		}
 
-    function previousPage(){
-        setPage((prev) => prev - 1);
-    }
+		function nextPage() {
+			setPage((prev) => prev + 1);
+		}
 
-    function nextPage() {
-        setPage((prev)=> prev + 1)
-    }
-   
-    return <>
-        <div className="flex flex-col px-4">
-            <Header name='All Registered Member'/>
-            <div className="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                {request ? <FullPageLoader /> : <div
-                    className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
-                >
-                    <FilteredTable data={members} table_head={render_head(_member_details)} render_body={(a) => renderTable_body(a)} page={page} prev={previousPage} next={nextPage} />
-                    
-                </div>
-                }
-            </div>
-        </div>
-    </>
+		return (
+			<>
+				<div className="flex flex-col px-4">
+					<Header name="All Registered Member" />
+					<div className="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+						{console.log(page)}
+						{request ? (
+							<FullPageLoader />
+						) : (
+							<div className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+								<FilteredTable
+									data={members}
+									table_head={render_head(_member_details)}
+									render_body={(a) => renderTable_body(a)}
+									page={page}
+									prev={previousPage}
+									next={nextPage}
+								/>
+							</div>
+						)}
+					</div>
+				</div>
+			</>
+		);
 }
 
 
