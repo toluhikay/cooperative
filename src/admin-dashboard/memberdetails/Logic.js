@@ -51,7 +51,6 @@ export default function MemberDetails() {
             if (res) {
                 setRequest(false)
                 const { status, message } = await res;
-                console.log(await res);
                 if (status !== 'success') {
                     toast.error(message);
                 } else {

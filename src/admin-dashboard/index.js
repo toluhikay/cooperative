@@ -5,13 +5,26 @@ import SideBar from "./sidebar";
 
 
 const dashboardLinks = [
-    {id:0, name:'Overview', path:'account-overview', header:'members account overview'},
-  { id: 3, name: 'Registered member', path: 'registered-member', header: 'registered member' },
-  { id: 4, name: 'Register member', path: 'member-registration', header: 'New member registration' },
-    {id:5,name:'News', path:'news', header:'News Section'},
-  { id: 6, name: 'Log out', path: 'log-out', header: 'log out' },
-    
-]
+	{
+		id: 0,
+		name: "Overview",
+		path: "account-overview",
+		header: "members account overview",
+	},
+	{
+		id: 3,
+		name: "Registered member",
+		path: "registered-member",
+		header: "registered member",
+	},
+	{
+		id: 4,
+		name: "Register member",
+		path: "member-registration",
+		header: "New member registration",
+	},
+	// { id: 5, name: "News", path: "news", header: "News Section" },
+];
 
 
 export default function AdminDashboard(){
