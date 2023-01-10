@@ -8,7 +8,7 @@ import { FullPageLoader } from '../component/ui';
 import { useNavigate } from 'react-router-dom';
 import { FilteredTable } from '../../components/accountdetailsComp/Logic';
 
-export function TableLink({ data, url, name}) {
+export function TableLink({ data, url, name, info }) {
     const navigate = useNavigate();
     return <button className='py-2 px-4 bg-indigo-600 rounded text-white inline-block cursor-pointer'
         onClick={() => navigate(url, { state: data })}>
@@ -128,7 +128,7 @@ export default function AccountSummary(){
 			GetMembers(
 				page,
 				async (res) => {
-					const { status, members, totalNumberOfMembers, message } = await res;
+					const { status, members, message } = await res;
 					if (!status) return;
 					else {
 						setRequest(false);

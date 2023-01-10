@@ -2,7 +2,7 @@ import { FullPageLoader } from "../component/ui";
 import AdminCard from "../component/ui";
 import { GetMemberTransaction } from "../../api/Api";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useToken } from "../../hooks";
 import Modal from "../component/modal";
@@ -39,6 +39,8 @@ export default function MemberDetails() {
     const location = useLocation();
     
     const id = location.pathname.split('/')[3];
+    const name = location.state;
+    console.log(name)
     
     const Credit_account_details = {type:'credit', name:'Credit Account', token, MEMBER_ID: id,  }
     const Debit_account_details = {type:'debit', name:'Debit Account', token, MEMBER_ID: id, styles:cardOneStyles  }
@@ -69,8 +71,12 @@ export default function MemberDetails() {
         return null;
 }
     return <section>
-       {request && <FullPageLoader/>} 
+        {request && <FullPageLoader />} 
         <article className="container mx-auto py-4">
+            <div className="my-10">
+
+            <h1 className=" font-bold text-3xl capitalize text-start">{name?.firstName + ' ' + name?.lastName}</h1>
+            </div>
             <div className="w-full mx-auto h-48 mb-24 mt-4 flex items-center justify-center  ">
 
                     {account.data && <CardContent styles={cardOneStyles} data={Object.entries(account.data)[2]} name="Credit account" getBtnName={(name)=> setTransactionType(name)} />}

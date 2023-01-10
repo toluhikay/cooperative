@@ -47,9 +47,7 @@ export default function MemberAccount() {
 		);
 	}, [url, token]);
 
-	{
-		/* <FilteredTable data={members} table_head={render_head(_member_details)} render_body={(a) => renderTable_body(a)} page={page} prev={previousPage} next={nextPage} /> */
-	}
+
 
 	return (
 		<section className="h-screen w-full">
@@ -58,7 +56,7 @@ export default function MemberAccount() {
 			{request ? (
 				<FullPageLoader />
 			) : (
-				<div>
+					<div>
 					<FilteredTable
 						data={accountData}
 						table_head={render_head(accountData)}

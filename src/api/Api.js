@@ -82,6 +82,28 @@ export async function RegisterMember(value, funct = (res) => {}) {
 		toast.error(message);
 	}
 }
+export async function EditMemberDetails({id,token,...value}, funct = (res) => { }) {
+	const data = JSON.stringify(value);
+	try {
+		const response = await fetch(`https://refiners-cooperative-api.herokuapp.com/api/v1/members/${id}`,
+			{
+				method: "PATCH",
+				body: data,
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `bearer ${token}`,
+
+				},
+			},
+		);
+		return response;
+	} catch (error) {
+		if (!error) return;
+		const message = error.message;
+		toast.error(message);
+		return error;
+	}
+}
 
 export async function GetMembers(page, funct = (res) => {}, token) {
 	try {

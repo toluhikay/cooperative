@@ -4,7 +4,7 @@ import { GetAccountSummary } from "../../api/Api";
 import toast from "react-hot-toast";
 import { useToken } from "../../hooks";
 import { FullPageLoader } from "../component/ui";
-import { FilteredTable } from "../../components/accountdetailsComp/Logic";
+// import { FilteredTable } from "../../components/accountdetailsComp/Logic";
 import Header from "../../dashboard/header";
 
 export default function Overview() {
