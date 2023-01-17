@@ -4,9 +4,14 @@ import {GetMembers}  from '../../api/Api';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useToken } from '../../hooks';
-import { FullPageLoader } from '../component/ui';
+import { Close, FullPageLoader } from '../component/ui';
 import { useNavigate } from 'react-router-dom';
 import { FilteredTable } from '../../components/accountdetailsComp/Logic';
+import { ModalContainer } from '../component/modal/Logic';
+
+
+
+
 
 export function TableLink({ data, url, name, info }) {
     const navigate = useNavigate();
@@ -31,7 +36,30 @@ export function render_head(tableInfo){
   }
 
 
+const DeleteModal = () => {
+    const [showModal, setShowModal] = useState(true);
+    const show = !showModal ? 'top-full' : 'top-0';
+
+   return <ModalContainer show={show}>
+        <div className="w-full h-full flex items-center justify-center">
+            <div className="p-2 rounded-lg  absolute top-10 cursor-pointer" onClick={()=>setShowModal(false)}>
+            <Close />
+            </div>
+            <div className="w-1/2 h-[30rem] py-4 bg-white rounded-lg">
+               <div className="w-full mt-4">
+                   <p>Are you sure you want to delete the member?</p>
+                    <button>Close</button>
+                    <button>Delete</button>
+                    </div>
+                   
+        </div>
+    </div>
+</ModalContainer> 
+}
 export function renderTable_body(tableInfo) {
+   
+
+
       if (!tableInfo) return;
     return tableInfo.map((cur, idx) => {
         
@@ -107,6 +135,7 @@ export function renderTable_body(tableInfo) {
 
                           Remove
                       </button>
+                     
                   </td>
                      
               </tr>
@@ -118,7 +147,7 @@ export function renderTable_body(tableInfo) {
 
 
 
-export default function AccountSummary(){
+export default function AccountSummary() {
     const [members, setMembers] = useState([]);
     const [token] = useToken();
     const [request, setRequest] = useState(true);
@@ -149,14 +178,18 @@ export default function AccountSummary(){
 
 		function nextPage() {
 			setPage((prev) => prev + 1);
-		}
+        }
+    function onClick() {
+        
+    }
 
 		return (
-			<>
+            <>
+            {/* <DeleteModal/> */}
+
 				<div className="flex flex-col px-4">
 					<Header name="All Registered Member" />
 					<div className="py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-						{console.log(page)}
 						{request ? (
 							<FullPageLoader />
 						) : (

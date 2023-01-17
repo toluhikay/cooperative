@@ -40,7 +40,6 @@ export default function MemberDetails() {
     
     const id = location.pathname.split('/')[3];
     const name = location.state;
-    console.log(name)
     
     const Credit_account_details = {type:'credit', name:'Credit Account', token, MEMBER_ID: id,  }
     const Debit_account_details = {type:'debit', name:'Debit Account', token, MEMBER_ID: id, styles:cardOneStyles  }
@@ -56,7 +55,7 @@ export default function MemberDetails() {
                 if (status !== 'success') {
                     toast.error(message);
                 } else {
-                    const { page, account, transactions, } = await res;
+                    const { account, transactions, } = await res;
                     // TABLE FOR ALL THE TRANSACTIONS
                     
                     setAccount(() => {

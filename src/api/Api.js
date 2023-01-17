@@ -5,9 +5,10 @@ import { AxiosRequest } from "./BaseURL";
 export const LoginReq = async (values, funct = (res) => {}) => {
 	try {
 		const response = await AxiosRequest.post("auth/login", values);
+		console.log(response)
 		funct(response);
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 		if (!error) return;
 		const message = error.response.data.message;
 		toast.error(message);
@@ -126,7 +127,7 @@ export async function GetMembers(page, funct = (res) => {}, token) {
 	}
 }
 
-export async function GetAccountSummary(funct = (res) => {}, token) {
+export async function GetAccountSummary(funct = (res) => { }, token) {
 	try {
 		const response = await fetch(
 			"https://refiners-cooperative-api.herokuapp.com/api/v1/members/member-account-summaries",
@@ -170,6 +171,7 @@ export async function GetMemberAccountSummary(funct = (res) => {}, token) {
 
 export async function GetMemberAccount(name, funct = (res) => {}, token) {
 	try {
+		// console.log(token
 		const response = await fetch(
 			`https://refiners-cooperative-api.herokuapp.com/api/v1/members/account-total/details?account=${name}`,
 			{

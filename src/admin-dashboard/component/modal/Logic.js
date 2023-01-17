@@ -7,6 +7,12 @@ import toast from "react-hot-toast";
 import { Close } from "../ui";
 
 
+export const ModalContainer = ({ children, show }) => {
+    return <div className={`w-full h-screen bg-[rgba(0,0,0,0.8)] transition-all ease duration-300 fixed ${show} left-20 z-10`}>
+       {children}
+   </div>
+}
+
 export default function Modal(details) {
 
     const { type, token, name, MEMBER_ID, remove } = details;
@@ -35,6 +41,8 @@ export default function Modal(details) {
                         toast.error(message);
                     } else {
                         toast.success(`Account ${type}ed successfully!`);
+
+                        window.location.reload()
                     }
                     
                 }
@@ -73,7 +81,7 @@ export default function Modal(details) {
     const show = type === '' ? 'top-full' : 'top-0';
     
 
-    return <div className={`w-full h-screen bg-[rgba(0,0,0,0.8)] transition-all ease duration-300 fixed ${show} left-20`}>
+    return <ModalContainer show={show}>
         <div className="w-full h-full flex items-center justify-center">
             <div className="p-2 rounded-lg  absolute top-10 cursor-pointer" onClick={()=>remove('')}>
             <Close />
@@ -89,7 +97,7 @@ export default function Modal(details) {
                 <Input {...descriptionProps} input_style={input_style} />
 
                     <Select {...selectProps} select_style={select_style}>
-                        {/* <option selected>Choose account</option> */}
+                        <option selected>Choose account</option>
                         <option value='thriftSavings'>Thrift savings</option>
                         <option value='shareCapital'>Share capital</option>
                         <option value='fine'>Fine</option>
@@ -102,5 +110,5 @@ export default function Modal(details) {
             </form>     
         </div>
     </div>
-</div>
+</ModalContainer> 
 };

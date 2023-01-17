@@ -39,7 +39,7 @@ function saveToken(token){
 				formik.setSubmitting(false);
 				if (response.statusText === "Accepted") {
 					console.log(await response);
-					const { role } = response?.data?.user;
+          const { role } = response?.data?.user;
 					saveToken(response?.data?.accessToken);
 					if (role === "super_admin")
 						navigate("/admin-dashboard/account-overview", { replace: true });
