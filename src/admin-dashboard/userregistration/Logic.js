@@ -8,10 +8,12 @@ import toast from "react-hot-toast";
 import { MemberRegistration_update } from "../component/member/Logic";
 import { Input, Select } from "../../ui/input";
 import { GetBankList } from "../../api/Api";
+import { useNavigate } from "react-router-dom";
 // import Header from "../../dashboard/header";
 
 export default function MemberRegistration() {
-	const [ setBankList] = useState([]);
+	const [setBankList] = useState([]);
+	const navigate = useNavigate();
 
 	const input_style =
 		"form-control block w-full px-3 py-3 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
@@ -29,6 +31,7 @@ export default function MemberRegistration() {
 					formik.setSubmitting(false);
 					if (status.status === "success") {
 						toast.success(status.message);
+						navigate("/admin-dashboard/registered-member");
 					} else {
 						toast.error(status.message);
 					}

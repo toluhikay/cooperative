@@ -5,7 +5,6 @@ import { AxiosRequest } from "./BaseURL";
 export const LoginReq = async (values, funct = (res) => {}) => {
 	try {
 		const response = await AxiosRequest.post("auth/login", values);
-		console.log(response)
 		funct(response);
 	} catch (error) {
 		// console.log(error);
@@ -83,17 +82,20 @@ export async function RegisterMember(value, funct = (res) => {}) {
 		toast.error(message);
 	}
 }
-export async function EditMemberDetails({id,token,...value}, funct = (res) => { }) {
+export async function EditMemberDetails(
+	{ id, token, ...value },
+	funct = (res) => {},
+) {
 	const data = JSON.stringify(value);
 	try {
-		const response = await fetch(`https://refiners-cooperative-api.herokuapp.com/api/v1/members/${id}`,
+		const response = await fetch(
+			`https://refiners-cooperative-api.herokuapp.com/api/v1/members/${id}`,
 			{
 				method: "PATCH",
 				body: data,
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `bearer ${token}`,
-
 				},
 			},
 		);
@@ -103,6 +105,29 @@ export async function EditMemberDetails({id,token,...value}, funct = (res) => { 
 		const message = error.message;
 		toast.error(message);
 		return error;
+	}
+}
+
+export async function DeleteMemberDetails({ id, token }) {
+	console.log(id, token);
+	try {
+		const response = await fetch(
+			`https://refiners-cooperative-api.herokuapp.com/api/v1/members/${id}`,
+			{
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `bearer ${token}`,
+				},
+			},
+		);
+		return response;
+	} catch (error) {
+		return error;
+		// if (!error) return;
+		// const message = error.message;
+		// toast.error(message);
+		// return error;
 	}
 }
 
@@ -127,7 +152,7 @@ export async function GetMembers(page, funct = (res) => {}, token) {
 	}
 }
 
-export async function GetAccountSummary(funct = (res) => { }, token) {
+export async function GetAccountSummary(funct = (res) => {}, token) {
 	try {
 		const response = await fetch(
 			"https://refiners-cooperative-api.herokuapp.com/api/v1/members/member-account-summaries",

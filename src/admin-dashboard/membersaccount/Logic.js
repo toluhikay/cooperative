@@ -16,6 +16,7 @@ export default function MemberAccount() {
 
 	const location = useLocation();
 	const [token] = useToken();
+	console.log(location);
 	const url = location.pathname.split("/")[3];
 
 	function nextPage() {
@@ -30,15 +31,12 @@ export default function MemberAccount() {
 		GetMemberAccount(
 			url,
 			async (res) => {
-				console.log(url);
 				const { status, message, accountDetails } = await res;
 				if (status) {
 					setRequest(false);
 					if (status !== "success") {
 						toast.error(message);
 					} else {
-						// console.log(accountDetails)
-						// setData(accountDetails);
 						setData(accountData);
 					}
 				}
@@ -47,8 +45,6 @@ export default function MemberAccount() {
 		);
 	}, [url, token]);
 
-
-
 	return (
 		<section className="h-screen w-full">
 			<Header name="Individual Account Details" />
@@ -56,7 +52,7 @@ export default function MemberAccount() {
 			{request ? (
 				<FullPageLoader />
 			) : (
-					<div>
+				<div>
 					<FilteredTable
 						data={accountData}
 						table_head={render_head(accountData)}

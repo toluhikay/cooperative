@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export function FilteredTable(props) {
 	const { data, table_head, render_body, page, prev, next } = props;
-	console.log(props);
 
 	const [value, setValue] = useState("");
 

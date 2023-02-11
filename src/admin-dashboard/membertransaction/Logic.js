@@ -17,7 +17,6 @@ export default function MemberAccountDetails() {
 	const [token] = useToken();
 	const account = location.pathname.split("/")[3];
 	const id = location.pathname.split("/")[4];
-	console.log(account);
 
 	function nextPage() {
 		setPage((state) => state + 1);
@@ -28,7 +27,6 @@ export default function MemberAccountDetails() {
 	}
 
 	useEffect(() => {
-		console.log(id);
 		const details = { MEMBER_ID: account, TRANSACTION_TYPE: id };
 
 		GetMemberTransaction(
