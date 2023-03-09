@@ -16,7 +16,6 @@ export default function MemberAccount() {
 
 	const location = useLocation();
 	const [token] = useToken();
-	console.log(location);
 	const url = location.pathname.split("/")[3];
 
 	function nextPage() {
@@ -37,7 +36,7 @@ export default function MemberAccount() {
 					if (status !== "success") {
 						toast.error(message);
 					} else {
-						setData(accountData);
+						setData(accountDetails);
 					}
 				}
 			},
@@ -54,8 +53,8 @@ export default function MemberAccount() {
 			) : (
 				<div>
 					<FilteredTable
-						data={accountData}
-						table_head={render_head(accountData)}
+						data={data}
+						table_head={render_head(data)}
 						render_body={(a) => renderTable_body(a)}
 						page={page}
 						prev={previousPage}

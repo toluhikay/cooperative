@@ -198,7 +198,7 @@ export async function GetMemberAccount(name, funct = (res) => {}, token) {
 	try {
 		// console.log(token
 		const response = await fetch(
-			`https://refiners-cooperative-api.herokuapp.com/api/v1/members/account-total/details?account=${name}`,
+			`https://refiners-cooperative-api.herokuapp.com/api/v1/members/account-total/details?account=${name}&populate=user`,
 			{
 				method: "GET",
 				headers: {
@@ -234,7 +234,7 @@ export async function GetMemberTransaction(value, funct = () => {}, token) {
 	const { MEMBER_ID, TRANSACTION_TYPE } = value;
 	try {
 		const data = await fetch(
-			`https://refiners-cooperative-api.herokuapp.com/api/v1/transactions/member-transactions/?user=${MEMBER_ID}&filter=${TRANSACTION_TYPE}`,
+			`https://refiners-cooperative-api.herokuapp.com/api/v1/transactions/member-transactions/?user=${MEMBER_ID}&filter=${TRANSACTION_TYPE}&populate=user`,
 			{
 				method: "GET",
 				headers: {

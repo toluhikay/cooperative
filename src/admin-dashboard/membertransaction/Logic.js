@@ -60,6 +60,7 @@ export default function MemberAccountDetails() {
 						table_head={render_head(data)}
 						render_body={(a) => renderTable_body(a)}
 						page={page}
+						c
 						prev={previousPage}
 						next={nextPage}
 					/>
